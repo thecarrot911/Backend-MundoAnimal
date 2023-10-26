@@ -16,19 +16,35 @@ exports.Borrar = exports.Modificar = exports.Registrar = exports.Mostrar = expor
 const usuario_1 = __importDefault(require("../models/usuario"));
 const MostrarTodos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const usuarios = yield usuario_1.default.findAll();
-    res.json(usuarios);
+    res.json({ usuarios });
 });
 exports.MostrarTodos = MostrarTodos;
 const Mostrar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.json({
-        msg: 'Mostrar'
-    });
+    const { id } = req.params;
+    const user = yield usuario_1.default.findByPk(id);
+    if (user) {
+        res.json(user);
+    }
+    else {
+        res.status(404).json({
+            msg: `No existe el usuario con el rut ${id}`
+        });
+    }
 });
 exports.Mostrar = Mostrar;
 const Registrar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.json({
-        msg: 'Registrar'
-    });
+    const { body } = req;
+    try {
+        const usuario = yield usuario_1.default.build(body);
+        yield usuario.save();
+        res.json(usuario);
+    }
+    catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg: 'No se puede registrar el usuario'
+        });
+    }
 });
 exports.Registrar = Registrar;
 const Modificar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

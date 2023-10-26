@@ -1,8 +1,14 @@
 import { DataTypes } from "sequelize";
 import database from "../database/connection";
 
-const Usuario = database.define('Usuario',{
+const Usuario = database.define('Usuario',
+{
     rut:{
+        type: DataTypes.STRING,
+        primaryKey: true,
+        autoIncrement: false
+    },
+    clave:{
         type: DataTypes.STRING
     },
     nombre: {
@@ -17,6 +23,9 @@ const Usuario = database.define('Usuario',{
     estado: { 
         type: DataTypes.BOOLEAN
     }
+},
+{
+    tableName: 'Usuario',
 });
 
 export default Usuario;
