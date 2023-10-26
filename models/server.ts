@@ -3,6 +3,7 @@ import userRouters from '../routes/usuario';
 import cors from "cors";
 import morgan from "morgan";
 import path from "path";
+import database from '../database/connection';
 
 class Server {
    
@@ -15,8 +16,19 @@ class Server {
     constructor(){
         this.app = express();
         this.port = process.env.PORT || '9000';
+        this.DatabaseConnection();
         this.Middlewares();
         this.Routes();
+    }
+
+    async DatabaseConnection(){
+        try{
+            await database.authenticate();
+            console.log('Database ON')
+
+        }catch(error){
+            console.log(error)
+        }
     }
 
     Middlewares(){

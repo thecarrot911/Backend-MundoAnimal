@@ -1,10 +1,9 @@
 import { Request, Response } from 'express';
-
+import Usuario from "../models/usuario";
 
 export const MostrarTodos = async(req: Request, res: Response) =>{
-    res.json({
-        msg: 'MostrarTodos'
-    })
+    const usuarios = await Usuario.findAll();   
+    res.json(usuarios)
 }
 export const Mostrar = async(req: Request, res: Response) =>{
     res.json({
