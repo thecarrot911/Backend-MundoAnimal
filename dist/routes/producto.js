@@ -24,12 +24,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const Usuario = __importStar(require("../controllers/usuario"));
+const Producto = __importStar(require("../controllers/producto"));
 const router = (0, express_1.Router)();
-router.get('/', Usuario.MostrarTodos);
-router.get('/:id', Usuario.Mostrar);
-router.post('/', Usuario.Registrar);
-router.put('/:id', Usuario.Modificar);
-router.delete('/:id', Usuario.Eliminar);
+router.get('/', Producto.MostrarTodos);
+router.get('/:id');
+router.post('/');
+router.put('/:id');
+router.delete('/:id');
 exports.default = router;
-//# sourceMappingURL=usuario.js.map
+//# sourceMappingURL=producto.js.map

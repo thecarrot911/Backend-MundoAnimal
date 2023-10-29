@@ -8,7 +8,6 @@ const database = new Sequelize(
         host: 'monorail.proxy.rlwy.net',
         port: 48308,
         dialect: 'mysql'
-        //logging: false
     }
 );
 

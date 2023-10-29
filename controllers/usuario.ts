@@ -33,11 +33,42 @@ export const Registrar = async(req:Request, res:Response) =>{
 }
 
 export const Modificar = async(req: Request, res: Response) =>{
-    res.json({
-        msg: 'Modificar'
-    })
+    const { body } = req;
+    const { id } = req.params;
+    try{
+        const usuario = await Usuario.findByPk(id);
+        if (! usuario){
+            return res.status(404).json({
+                msg: `No existe el usuario con el rut ${id}`
+            })
+        }
+        await usuario.update(body);
+        res.json(usuario);
+
+    }catch(error){
+        console.log(error)
+        console.error(error)
+        res.status(500).json({
+            msg: ''+error        
+        })
+    }
 }
-export const Borrar = async(req: Request, res: Response) =>{
+export const Eliminar = async(req: Request, res: Response) =>{
+    const { id } = req.params;
+    try{
+        const usuario = await Usuario.findByPk(id);
+        if (! usuario){
+            return res.status(404).json({
+                msg: `No existe el usuario con el rut ${id}`
+            })
+        }
+        await usuario.destroy();// cuidado con las referencias.
+        // se puede usar el estado para elimianr de forma logica con 0 en estado.
+
+    }catch(error){
+
+    }
+    
     res.json({
         msg: 'Borrar'
     })

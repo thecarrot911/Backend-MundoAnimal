@@ -1,8 +1,10 @@
 import express, {Application} from 'express';
 import userRouters from '../routes/usuario';
+import productRouters from '../routes/producto';
+import marcaRouters from '../routes/marca';
+import categoriaRouters from '../routes/categoria';
 import cors from "cors";
 import morgan from "morgan";
-import path from "path";
 import database from '../database/connection';
 
 class Server {
@@ -10,7 +12,10 @@ class Server {
     private app: Application;
     private port: string;
     private apiPaths = {
-        usuarios: '/api/usuarios'
+        usuario: '/api/usuario',
+        producto: '/api/producto',
+        marca: '/api/marca',
+        categoria:'/api/categoria'
     }
 
     constructor(){
@@ -39,7 +44,10 @@ class Server {
     }
 
     Routes(){
-        this.app.use(this.apiPaths.usuarios, userRouters)
+        this.app.use(this.apiPaths.usuario, userRouters),
+        this.app.use(this.apiPaths.producto, productRouters),
+        this.app.use(this.apiPaths.marca,marcaRouters),
+        this.app.use(this.apiPaths.categoria,categoriaRouters);
     }
 
     Listen(){

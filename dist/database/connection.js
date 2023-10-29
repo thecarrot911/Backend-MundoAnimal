@@ -6,7 +6,6 @@ const database = new sequelize_1.Sequelize('railway', 'root', 'CbbFh-BFh--34-36A
     host: 'monorail.proxy.rlwy.net',
     port: 48308,
     dialect: 'mysql'
-    //logging: false
 });
 exports.default = database;
 //# sourceMappingURL=connection.js.map

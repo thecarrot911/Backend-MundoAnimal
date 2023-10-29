@@ -8,22 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Eliminar = exports.Modificar = exports.Registrar = exports.Mostrar = exports.MostrarTodos = void 0;
-const usuario_1 = __importDefault(require("../models/usuario"));
+exports.Modificar = exports.Registrar = exports.Mostrar = exports.MostrarTodos = void 0;
+const marca_1 = require("../models/marca");
 const MostrarTodos = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const usuarios = yield usuario_1.default.findAll();
-    res.json({ usuarios });
+    const marcas = yield marca_1.Marca.findAll();
+    res.json({ marcas });
 });
 exports.MostrarTodos = MostrarTodos;
 const Mostrar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
-    const user = yield usuario_1.default.findByPk(id);
-    if (user) {
-        res.json(user);
+    const marca = yield marca_1.Marca.findByPk(id);
+    if (marca) {
+        res.json(marca);
     }
     else {
         res.status(404).json({
@@ -35,14 +32,14 @@ exports.Mostrar = Mostrar;
 const Registrar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
-        const usuario = yield usuario_1.default.build(body);
-        yield usuario.save();
-        res.json(usuario);
+        const marca = yield marca_1.Marca.build(body);
+        yield marca.save();
+        res.json(marca);
     }
     catch (error) {
         console.log(error);
         res.status(500).json({
-            msg: 'No se puede registrar el usuario'
+            msg: 'No se puede registrar el producto'
         });
     }
 });
@@ -51,41 +48,16 @@ const Modificar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     const { id } = req.params;
     try {
-        const usuario = yield usuario_1.default.findByPk(id);
-        if (!usuario) {
+        const producto = yield marca_1.Marca.findByPk(id);
+        if (!producto) {
             return res.status(404).json({
-                msg: `No existe el usuario con el rut ${id}`
+                msg: `No existe el producto`
             });
         }
-        yield usuario.update(body);
-        res.json(usuario);
+        yield producto.update(body);
     }
     catch (error) {
-        console.log(error);
-        console.error(error);
-        res.status(500).json({
-            msg: '' + error
-        });
     }
 });
 exports.Modificar = Modificar;
-const Eliminar = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    try {
-        const usuario = yield usuario_1.default.findByPk(id);
-        if (!usuario) {
-            return res.status(404).json({
-                msg: `No existe el usuario con el rut ${id}`
-            });
-        }
-        yield usuario.destroy(); // cuidado con las referencias.
-        // se puede usar el estado para elimianr de forma logica con 0 en estado.
-    }
-    catch (error) {
-    }
-    res.json({
-        msg: 'Borrar'
-    });
-});
-exports.Eliminar = Eliminar;
-//# sourceMappingURL=usuario.js.map
+//# sourceMappingURL=marca.js.map
